@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>{{ title }}</title>
+</head>
+<body>
+  <header>
+    <h1>{{ title }}</h1>
+  </header>
+  {% if env == "development" %}
+    <div class="dev">Development Mode</div>
+  {%endif%}
+  <main>
+    {{ content | safe }}
+  </main>
+</body>
+  <script src="/scripts/main.js"></script>
+</html>
