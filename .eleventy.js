@@ -8,6 +8,8 @@ module.exports = function (eleventyConfig) {
 
     if (env == 'development') {
     }
+    if (env == 'staging') {
+    }
 
     if (env == 'production') {
     }

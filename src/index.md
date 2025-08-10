@@ -1,4 +1,4 @@
 ---
 title: islandskan
-layout: base.njk
+layout: layouts/workbench.njk
 ---

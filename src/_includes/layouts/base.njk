@@ -7,15 +7,14 @@
   <title>{{ title }}</title>
 </head>
 <body>
-  <header>
-    <h1>{{ title }}</h1>
-  </header>
   {% if env == "development" %}
     <div class="dev">Development Mode</div>
   {%endif%}
-  <main>
-    {{ content | safe }}
+  {% include "partials/header.njk" %}
+  <main tabindex="-1">
+    {% block content %}{% endblock %}
   </main>
+  {% include "partials/footer.njk" %}
 </body>
   <script src="/scripts/main.js"></script>
 </html>

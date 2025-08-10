@@ -1,0 +1,9 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+<div class="workbench">
+    {% include "partials/workbench-modals/latest-exploration.njk" %}
+    {% include "partials/workbench-modals/latest-thought.njk" %}
+    {% include "partials/workbench-modals/latest-bookshelf-item.njk" %}
+</div>
+{% endblock %}
