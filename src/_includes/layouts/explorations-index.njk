@@ -1,8 +1,8 @@
 {% extends "layouts/base.njk" %}
 
 {% block content %}
-<div>
 {{title}}
-</div>
+<pre>{{collections.explorations}}</pre>
+{% include "partials/list.njk" %}
 
 {% endblock %}

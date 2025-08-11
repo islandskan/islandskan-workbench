@@ -1,8 +1,10 @@
+// const { eleventyImageTransformPlugin } = require('@11ty/eleventy-img');
 module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy('./src/css');
     eleventyConfig.addWatchTarget('./src/css/');
     eleventyConfig.addPassthroughCopy('./src/scripts');
     eleventyConfig.addWatchTarget('./src/scripts');
+    // eleventyConfig.addPlugin(eleventyImageTransformPlugin);
     const env = process.env.ELEVENTY_ENV || 'development';
     eleventyConfig.addGlobalData('env', env);
 
@@ -13,6 +15,18 @@ module.exports = function (eleventyConfig) {
 
     if (env == 'production') {
     }
+
+    eleventyConfig.addCollection('thoughts', function (collectionsApi) {
+        const items = collectionsApi.getFilteredByTag('thought');
+        console.log("Thoughts: ", items.length);
+        return items;
+    });
+
+    eleventyConfig.addCollection('explorations', function (collectionsApi) {
+        const items = collectionsApi.getFilteredByTag('exploration');
+        console.log("Explorations: ", items.length);
+        return items;
+    });
 
     return {
         dir: {

@@ -1,0 +1,18 @@
+[
+    {
+        "title": "The Pragmatic Programmer",
+        "author": "Andrew Hunt, David Thomas",
+        "year": 1999,
+        "type": "book",
+        "description": "A classic programming book covering best practices.",
+        "relatedThought": "/posts/reflections-on-pragmatic-programmer/"
+    },
+    {
+        "title": "In Search of Lost Time",
+        "author": "Marcel Proust",
+        "year": 1913,
+        "type": "book",
+        "description": "A monumental French novel.",
+        "relatedThought": null
+    }
+]

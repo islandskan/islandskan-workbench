@@ -1,0 +1,33 @@
+<!-- no async content here atm, so should be fine to use set for now -->
+<!-- https://www.11ty.dev/docs/languages/nunjucks/#warning-set-is-not-async-friendly -->
+
+{% set items = [] %}
+{% set cardType = '' %}
+{% set listClass = '' %}
+
+{% if listType == 'bookshelf' %}
+    {% set items = bookshelf %}
+    {% set cardType = 'bookshelf-item' %}
+    {% set listClass = 'bookshelf' %}
+{% elseif listType == 'explorations' %}
+    {% set items = collections.explorations %}
+    {% set cardType = 'exploration' %}
+    {% set listClass = 'posts' %}
+{% elseif listType == 'thoughts' %}
+    {% set items = collections.thoughts %}
+    {% set cardType = 'thought' %}
+    {% set listClass = 'posts' %}
+{% else %}
+    {% set items = [] %}
+{% endif %}
+
+<div class="list {{listClass}}">
+{% for item in items %}
+    {% set _item = item %}
+    {% set _cardType = cardType %}
+    {% include "partials/card.njk" %}
+    {% else %}
+    <p>No items found</p>
+{% endfor %}
+
+</div>
