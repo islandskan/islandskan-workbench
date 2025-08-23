@@ -1,18 +1,24 @@
 [
     {
-        "title": "The Pragmatic Programmer",
-        "author": "Andrew Hunt, David Thomas",
-        "year": 1999,
+        "itemId": 1,
         "type": "book",
-        "description": "A classic programming book covering best practices.",
-        "relatedThought": "/posts/reflections-on-pragmatic-programmer/"
+        "title": "Data and Communications signal",
+        "dateAdded": "2025-08-13",
+        "creator": null,
+        "year": null,
+        "description": null,
+        "externalURI": null,
+        "relatedThoughtURI": null
     },
     {
-        "title": "In Search of Lost Time",
-        "author": "Marcel Proust",
-        "year": 1913,
+        "itemId": 2,
         "type": "book",
-        "description": "A monumental French novel.",
-        "relatedThought": null
+        "title": "Technofeminism",
+        "dateAdded": "2025-08-13",
+        "creator": null,
+        "year": null,
+        "description": null,
+        "externalURI": null,
+        "relatedThoughtURI": null
     }
 ]
