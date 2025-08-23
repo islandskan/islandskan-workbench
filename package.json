@@ -1,11 +1,11 @@
 {
     "name": "islandskan",
     "version": "1.0.0",
-    "description": "",
+    "description": "My personal website store and connect ongoing learning and working process. Built more like a workbench than a portfolio.",
     "main": ".eleventy.js",
     "scripts": {
-        "dev": "cross-env ELEVENTY_ENV=development npx @11ty/eleventy --serve",
-        "stage": "cross-env ELEVENTY_ENV=staging npx @11ty/eleventy --serve",
+        "dev": "concurrently \"cross-env ELEVENTY_ENV=development npx @11ty/eleventy --serve\" \"node scripts/watch-exploration-posts.js\"",
+        "stage": "concurrently \"cross-env ELEVENTY_ENV=staging npx @11ty/eleventy --serve\" \"node scripts/watch-exploration-posts.js\"",
         "build": "cross-env ELEVENTY_ENV=production npx @11ty/eleventy"
     },
     "keywords": [],
@@ -13,6 +13,11 @@
     "license": "ISC",
     "devDependencies": {
         "@11ty/eleventy": "^3.1.2",
+        "concurrently": "^9.2.0",
         "cross-env": "^10.0.0"
+    },
+    "dependencies": {
+        "chokidar": "^3.6.0",
+        "js-yaml": "^4.1.0"
     }
 }
