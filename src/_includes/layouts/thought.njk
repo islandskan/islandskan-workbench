@@ -1,9 +1,13 @@
 {% extends "layouts/base.njk" %}
 
 {% block content %}
+
+<section class="thought">
     <h2>{{title}}</h2>
+    <p>{{date}}</p>
     <article>
         {{content | safe}}
     </article>
+</section>
 
 {% endblock %}

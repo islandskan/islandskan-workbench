@@ -1,0 +1,64 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+<article class="exploration">
+
+
+    <h1>{{title}}</h2>
+    <p>Status: {{status}}</p>
+    <p>Tags: {{tags}}</p>
+    <p>Started: {{startDate}}</p>
+    <p>Last update: {{latestUpdate}}</p>
+
+    <section>
+    <h2>Overview</h2>
+        {{content | safe}}
+    </section>
+
+<section class="exploration-logs">
+    <h2>Logs</h2>
+      {% set logs = collections.explorationLogs[page.fileSlug] or [] %}
+      {% if logs.length %}
+        <ul>
+          {% for log in logs %}
+            <li>
+              <h3>{{ log.data.date }}</h3>
+              {{ log.templateContent | safe }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No logs yet.</p>
+      {% endif %}
+</section>
+
+
+    <section>
+    <h3>Lingering questions</h3>
+    <ul>
+    {% for question in unansweredQuestions %}
+    <li>{{question}}</li>
+    {% endfor %}
+    </ul>
+    </section>
+
+    <section>
+    <h3>References</h3>
+    <ul>
+    {% for ref in references %}
+    <li>{{ref}}</li>
+    {% endfor %}
+    </ul>
+    </section>
+
+    <section>
+    <h3>Tools</h3>
+    <ul>
+    {% for tool in tools %}
+    <li>{{tool}}</li>
+    {% endfor %}
+    </ul>
+    </section>
+
+</article>
+{% endblock %}
