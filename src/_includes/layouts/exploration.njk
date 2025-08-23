@@ -4,29 +4,19 @@
   <article class="exploration">
     <h1>{{title}}</h2>
     <p>Status: {{status}}</p>
-    <p>Tags: {{tags}}</p>
-    <p>Started: {{startDate}}</p>
-    <p>Last update: {{latestUpdate}}</p>
+    <p>Tags: {{tags | join(", ")}}</p>
+    <p>Started: {{startDate.toISOString().split("T")[0] }}</p>
+    <p>Last update: {{latestUpdate.toISOString().split("T")[0]}}</p>
 
     <section>
       <h2>Overview</h2>
         {{content | safe}}
     </section>
 
-  <section class="exploration-logs">
+ <section class="exploration-logs">
     <h2>Logs</h2>
-    {% if collections.explorationLogs and collections.explorationLogs[page.fileSlug] %}
-      <ul>
-        {% for log in collections.explorationLogs[page.fileSlug] %}
-          <li>
-            <h3>{{ log.data.date }}</h3>
-            {{ log.templateContent | safe }}
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-    <p>No logs yet.</p>
-    {% endif %}
+    {% set logs = page.logs | reverse %}
+    <p>{{page.logs}}</p>
   </section>
 
   <section>
