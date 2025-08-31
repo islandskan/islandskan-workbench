@@ -5,6 +5,11 @@
     {% else %}
     {# item is from bookshelf.json #}
         <h6>{{_item.title}}</h6>
+        <p>{{_item.dateAdded}}</p>
+        <p>{{_item.creator}}</p>
+        <p>{{_item.year}}</p>
+        <p>{{_item.description}}</p>
+        <p>{{_item.externalURI}}</p>
         {% if _item.relatedThought %}
             <a href="{{_item.relatedThought}}">Read my thoughts on this</a>
         {% endif %}

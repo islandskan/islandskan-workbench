@@ -4,7 +4,7 @@
 
 <section class="thought">
     <h2>{{title}}</h2>
-    <p>{{date.toISOString().split("T")[0]}}</p>
+    <p>{{date | toStringDate}}</p>
     <article>
         {{content | safe}}
     </article>

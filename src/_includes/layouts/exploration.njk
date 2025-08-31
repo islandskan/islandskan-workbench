@@ -5,8 +5,8 @@
     <h1>{{title}}</h2>
     <p>Status: {{status}}</p>
     <p>Tags: {{tags | join(", ")}}</p>
-    <p>Started: {{startDate.toISOString().split("T")[0] }}</p>
-    <p>Last update: {{latestUpdate.toISOString().split("T")[0]}}</p>
+    <p>Started: {{startDate | toStringDate }}</p>
+    <p>Last update: {{latestUpdate | toStringDate}}</p>
 
     <section>
       <h2>Overview</h2>
@@ -15,8 +15,13 @@
 
  <section class="exploration-logs">
     <h2>Logs</h2>
-    {% set logs = page.logs | reverse %}
-    <p>{{page.logs}}</p>
+    <p>Log entries: {{collections.explorationLogs | length}}</p>
+
+    <!-- the list of the log entries starts here -->
+    <!-- To do: -->
+    <!-- 1. use nunjucks set variable to set the explorationLogs collection and use the custom filter to pass the current page's fileSlug as argument -->
+    <!-- 2. use nunjucks for loop to just loop of the data from the collection -->
+    <!-- the list of the log entries ends here -->
   </section>
 
   <section>

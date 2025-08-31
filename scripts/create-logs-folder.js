@@ -11,6 +11,13 @@ function createLogsFolder(postFilePath) {
     const logFolder = path.join(dir, `${fileName}-logs`);
     if (!fs.existsSync(logFolder)) {
         fs.mkdirSync(logFolder);
+
+        /**
+         * To do:
+         * 1. one first log entry after the folder is created
+         * 1.1 const variable to hold the json structure
+         * 1.2. create the new file, by using the file path where the file should be created
+         */
         console.log(`Created ${logFolder}`);
     } else {
         console.log(`${logFolder} already exists.`);
