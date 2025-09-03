@@ -1,6 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 
+// function getTimeStamp() {
+//     const now = new Date();
+//     const year = now.getFullYear();
+//     const month = String(now.getMonth() + 1).padStart(2, '0');
+//     const day = String(now.getDate()).padStart(2, '0');
+//     const hour = String(now.getHours()).padStart(2, '0');
+//     const minute = String(now.getMinutes()).padStart(2, '0');
+//     const second = String(now.getSeconds()).padStart(2, '0');
+//     return `${year}-${month}-${day}-${hour}-${minute}-${second}`;
+// }
+
 function createLogsFolder(postFilePath) {
     if (!fs.existsSync(postFilePath)) {
         console.error(`Post file doesn't exist: ${postFilePath}`);
@@ -11,13 +22,6 @@ function createLogsFolder(postFilePath) {
     const logFolder = path.join(dir, `${fileName}-logs`);
     if (!fs.existsSync(logFolder)) {
         fs.mkdirSync(logFolder);
-
-        /**
-         * To do:
-         * 1. one first log entry after the folder is created
-         * 1.1 const variable to hold the json structure
-         * 1.2. create the new file, by using the file path where the file should be created
-         */
         console.log(`Created ${logFolder}`);
     } else {
         console.log(`${logFolder} already exists.`);

@@ -3,19 +3,29 @@ let title = await tp.system.prompt("Log entry title");
 
 let today = tp.date.now("YYYY-MM-DD");
 
+ let folderPath = tp.file.folder(true);
+
+let count = 1;
+let fileName = `${today}-${String(count).padStart(2, "0")}.md`
+
+while(await tp.file.exists(`${folderPath}/${fileName}`)) {
+count++;
+fileName = `${today}-${String(count).padStart(2, '0')}.md`;
+} 
+
 let parent = tp.file.folder().replace("-logs", "");
 
-await tp.file.rename(today);
+await tp.file.rename(fileName.replace(".md", ""));
 
 tR += `---
-title: "${title}"
+title: "Log entry ${count} - ${today}"
+underTitle: "${title}"
 date: ${today}
 tags: ["logs"]
 status: "prototyping"
 parent: "${parent}"
 layout: null
 permalink: false
-debugMarker: "TEST_FROM_LOG_ENTRY"
 ---
 
 Start adding log entry content here
