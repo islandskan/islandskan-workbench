@@ -13,7 +13,9 @@ count++;
 fileName = `${today}-${String(count).padStart(2, '0')}.md`;
 }
 
-let parentSlug = tp.file.folder(true).split("/").pop().replace("-logs$/i", "");
+let folderName = tp.file.folder(true).split("/").pop();
+
+let parentSlug = folderName.replace(/-logs$/i, "");
 
 await tp.file.rename(fileName.replace(".md", ""));
 

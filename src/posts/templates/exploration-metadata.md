@@ -10,7 +10,7 @@ await tp.file.rename(slugifiedTitle);
 
 let today = tp.date.now("YYYY-MM-DD");
 
-let parentId = (title || "untitled").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")
+let parentId = slugifiedTitle;
 
 tR += `---
 title: "${title}"
@@ -31,4 +31,5 @@ permalink: "/explorations/${slugifiedTitle}/"
 ---
 
 `;
+
 %>

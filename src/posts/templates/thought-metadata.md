@@ -14,11 +14,13 @@ tR += `---
 title: "${title}"
 underTitle:
 tags: ["thought"]
-tone: 
+tone:
 date: ${today}
+unansweredQuestions:
+reflections:
+references:
 layout: layouts/thought.njk
 permalink: "/thoughts/${slugifiedTitle}/"
----
 
 `;
 %>

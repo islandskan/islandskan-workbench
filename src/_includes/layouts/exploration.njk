@@ -1,55 +1,89 @@
 {% extends "layouts/base.njk" %}
 
 {% block content %}
-  <article class="exploration">
-    <h1>{{title}}</h2>
-    <p>Status: {{status}}</p>
-    <p>Tags: {{tags | join(", ")}}</p>
-    <p>Started: {{startDate | toStringDate }}</p>
-    <p>Last update: {{latestUpdate | toStringDate}}</p>
+<article class="exploration">
+  <h1>{{ title }}</h1>
+  <p>Status: {{ status }}</p>
+  <p>Tags: {{ tags | join(", ") }}</p>
+  <p>Started: {{ startDate | toStringDate }}</p>
+  <p>Last update: {{ latestUpdate | toStringDate }}</p>
 
-    <section>
-      <h2>Overview</h2>
-        {{content | safe}}
-    </section>
-
- <section class="exploration-logs">
-    <h2>Logs</h2>
-    <p>Log entries: {{collections.explorationLogs | length}}</p>
-
-    <!-- the list of the log entries starts here -->
-    <!-- To do: -->
-    <!-- 1. use nunjucks set variable to set the explorationLogs collection and use the custom filter to pass the current page's fileSlug as argument -->
-    <!-- 2. use nunjucks for loop to just loop of the data from the collection -->
-    <!-- the list of the log entries ends here -->
+  <section>
+    <h2>Overview</h2>
+    {{ content | safe }}
   </section>
 
+  <section>
+  <h2>Logs</h2>
+  {% set currentSlug = page.fileSlug %}
+  {% set relatedLogs = [] %}
+  <pre>Current page slug: {{currentSlug}}</pre>
+  {% for log in collections.explorationLogs%}
+    {% if log.data.parent == currentSlug %}
+      {% set relatedLogs = relatedLogs | push(log) | reverse %}
+    {% endif %}
+  {% endfor%}
+  {% for log in relatedLogs %}
+    <pre>Log title: {{log.data.title}}</pre>
+    <pre>Log parent: {{log.data.parent}}</pre>
+    <pre>Log slug: {{log.data.slug or log.page.fileSlug}}</pre>
+    <p>{{log.templateContent | safe}}</p>
+    <hr />
+  {% endfor %}
+  </section>
+
+
+  {# Lingering questions #}
+  {% if unansweredQuestions %}
   <section>
     <h3>Lingering questions</h3>
     <ul>
-      {% for question in unansweredQuestions %}
-      <li>{{question}}</li>
-    {% endfor %}
+      {% if unansweredQuestions is string %}
+        <li>{{ unansweredQuestions }}</li>
+      {% else %}
+        {% for question in unansweredQuestions %}
+          <li>{{ question }}</li>
+        {% endfor %}
+      {% endif %}
     </ul>
   </section>
+  {% endif %}
 
+  {# References #}
+  {% if references %}
   <section>
     <h3>References</h3>
     <ul>
-      {% for ref in references %}
-      <li>{{ref}}</li>
+      {% for reference in references %}
+        <li>{{ reference }}</li>
       {% endfor %}
     </ul>
   </section>
+  {% endif %}
 
-    <section>
+  {# Reflections #}
+  {% if reflections %}
+  <section>
+    <h3>Reflections</h3>
+    <ul>
+      {% for reflection in reflections %}
+        <li>{{ reflection }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {# Tools #}
+  {% if tools %}
+  <section>
     <h3>Tools</h3>
     <ul>
       {% for tool in tools %}
-        <li>{{tool}}</li>
-      {% endfor %}
-    </ul>
-  </section>
+        <li>{{ tool }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
 
-</article>
+
 {% endblock %}

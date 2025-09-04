@@ -32,15 +32,6 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addCollection('explorations', function (collectionsApi) {
         const items = collectionsApi.getFilteredByTag('exploration');
         console.log('Explorations: ', items.length);
-        // collectionsApi.getAll().forEach((item) => {
-        //     if (item.inputPath.includes('2025-08-31')) {
-        //         console.log('DEBUGGING TEST LOG ENTRY');
-        //         console.log('InputPath:', item.inputPath);
-        //         console.log('Data keys:', Object.keys(item.data));
-        //         console.log('Tags:', item.data.tags);
-        //         console.log('Debug marker: ', item.data.debugMarker);
-        //     }
-        // });
 
         return items;
     });
@@ -65,6 +56,14 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addCollection('explorationLogs', function (collectionsApi) {
         const logs = collectionsApi.getFilteredByTag('logs');
         return logs;
+    });
+
+    eleventyConfig.addFilter('push', function (array, item) {
+        if (!Array.isArray(array)) {
+            array = [];
+        }
+        
+        return array.concat([item]);
     });
 
     return {
