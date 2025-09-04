@@ -24,9 +24,11 @@
 -   [x] When I create a post tagged as "Thought", it uses the right layout
 -
 -   [x] When I create a new Exploration in Obsidian, a logs folder is created automatically
-- [] When a logs folder is automatically created, it already contains a config "data.json" file
-- [] All log entries inside the logs folder uses the "data.json" config file as default front matter
--   [ ] When I create a new log entry in the logs folder, the log appears on the correct Exploration page
+-   [x] When an Exploration post contains multiple log entries, they are generates
+-   [x] When an Exploration post log entries are created the same date, they are automatically numbered
+-   [x] When I create a new log entry in the logs folder, the log appears on the correct Exploration page
+-   [x] When I create a log entry in a sub folder, they are linked to the parent Exploration through a parentSlug identifier
+- [] Log entries in a sub folder should render as part of the main Exploration post page
 -   [ ] When I add a status to an Exploration, it appears on the Exploration page
 -   [ ] When I cross-reference another post in frontmatter, the link works
 
