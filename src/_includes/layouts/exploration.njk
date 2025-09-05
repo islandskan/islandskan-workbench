@@ -20,10 +20,20 @@
     {% set latestStatus = status %}
   {% endif %}
 
+  {# get tags #}
+  {% set allTags = tags %}
+  {% for log in relatedLogs %}
+    {% for tag in log.data.tags %}
+      {% if tag != "logs" and not (tag in allTags) %}
+        {% set allTags = allTags | push(tag) %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+
 <article class="exploration">
   <h1>{{ title }}</h1>
   <p>Status: {{ latestStatus }}</p>
-  <p>Tags: {{ tags | join(", ") }}</p>
+  <p>Tags: {{ allTags | join(", ") }}</p>
   <p>Started: {{ startDate | toStringDate }}</p>
   <p>Last update: {{ latestUpdate | toStringDate }}</p>
 
@@ -40,7 +50,7 @@
     <pre>{{log.data.title}}</pre>
     <pre>{{log.data.date | toStringDate}}</pre>
     <pre>{{log.data.underTitle}}</pre>
-    <pre>tags: {{log.data.tags}}</pre>
+    <pre>tags: {{log.data.tags | join(", ")}}</pre>
     <pre>status: {{log.data.status}}</pre>
     <div>{{log.templateContent | safe}}</div>
     <hr />
