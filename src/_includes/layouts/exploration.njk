@@ -1,9 +1,28 @@
 {% extends "layouts/base.njk" %}
 
 {% block content %}
+  {# match and add log entries in desc. order based on current page #}
+  {% set currentSlug = page.fileSlug %}
+  {% set relatedLogs = [] %}
+
+    {% for log in collections.explorationLogs%}
+      {% if log.data.parent == currentSlug %}
+        {% set relatedLogs = relatedLogs | push(log) | reverse %}
+      {% endif %}
+    {% endfor%}
+
+  {# update last update and status #}
+  {% if relatedLogs | length %}
+    {% set latestUpdate = relatedLogs[0].data.date %}
+    {% set latestStatus = relatedLogs[0].data.status %}
+  {% else %}
+    {% set latestUpdate = startDate %}
+    {% set latestStatus = status %}
+  {% endif %}
+
 <article class="exploration">
   <h1>{{ title }}</h1>
-  <p>Status: {{ status }}</p>
+  <p>Status: {{ latestStatus }}</p>
   <p>Tags: {{ tags | join(", ") }}</p>
   <p>Started: {{ startDate | toStringDate }}</p>
   <p>Last update: {{ latestUpdate | toStringDate }}</p>
@@ -15,19 +34,15 @@
 
   <section>
   <h2>Logs</h2>
-  {% set currentSlug = page.fileSlug %}
-  {% set relatedLogs = [] %}
   <pre>Current page slug: {{currentSlug}}</pre>
-  {% for log in collections.explorationLogs%}
-    {% if log.data.parent == currentSlug %}
-      {% set relatedLogs = relatedLogs | push(log) | reverse %}
-    {% endif %}
-  {% endfor%}
+
   {% for log in relatedLogs %}
-    <pre>Log title: {{log.data.title}}</pre>
-    <pre>Log parent: {{log.data.parent}}</pre>
-    <pre>Log slug: {{log.data.slug or log.page.fileSlug}}</pre>
-    <p>{{log.templateContent | safe}}</p>
+    <pre>{{log.data.title}}</pre>
+    <pre>{{log.data.date | toStringDate}}</pre>
+    <pre>{{log.data.underTitle}}</pre>
+    <pre>tags: {{log.data.tags}}</pre>
+    <pre>status: {{log.data.status}}</pre>
+    <div>{{log.templateContent | safe}}</div>
     <hr />
   {% endfor %}
   </section>
