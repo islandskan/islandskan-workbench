@@ -1,7 +1,13 @@
-<div class="card {{_cardType}}">
+<div class="card {{_cardType}} {% if _item.data.hasWhatIBroke %}exploration-broke{% endif %}">
+  <pre>
+    slug: {{ item.fileSlug }}
+    url: {{ item.url }}
+  </pre>
     {% if _item.data %}
-    {# item is from collection #}
     <h5><a href="{{_item.url}}">{{_item.data.title}}</a></h5>
+    <p>Status: {{_item.data.status}}</p>
+    <p>Latest update: {{_item.data.latestUpdate | toStringDate}}</p>
+    <p>Tags: {{_item.data.tags | join(", ")}}</p>
     {% else %}
     {# item is from bookshelf.json #}
         <h6>{{_item.title}}</h6>

@@ -20,8 +20,7 @@ let parentSlug = folderName.replace(/-logs$/i, "");
 await tp.file.rename(fileName.replace(".md", ""));
 
 tR += `---
-title: "Log entry ${count} - ${today}"
-underTitle: "${title}"
+title: ${title}
 date: ${today}
 tags: ["logs"]
 status: "prototyping"

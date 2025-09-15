@@ -1,114 +1,111 @@
 {% extends "layouts/base.njk" %}
 
 {% block content %}
-  {# match and add log entries in desc. order based on current page #}
-  {% set currentSlug = page.fileSlug %}
-  {% set relatedLogs = [] %}
 
-    {% for log in collections.explorationLogs%}
-      {% if log.data.parent == currentSlug %}
-        {% set relatedLogs = relatedLogs | push(log) | reverse %}
-      {% endif %}
-    {% endfor%}
+{# Find the current exploration from the collection based on page.fileSlug #}
+{% set current = collections.explorationsWithLogs
+    | selectattr("data.slug", "equalto", page.fileSlug)
+    | first %}
 
-  {# update last update and status #}
-  {% if relatedLogs | length %}
-    {% set latestUpdate = relatedLogs[0].data.date %}
-    {% set latestStatus = relatedLogs[0].data.status %}
-  {% else %}
-    {% set latestUpdate = startDate %}
-    {% set latestStatus = status %}
-  {% endif %}
+    <pre>
+page.slug: {{ page.slug }}
+page.fileSlug: {{ page.fileSlug }}
+page.url: {{ page.url }}
+</pre>
 
-  {# get tags #}
-  {% set allTags = tags %}
-  {% for log in relatedLogs %}
-    {% for tag in log.data.tags %}
-      {% if tag != "logs" and not (tag in allTags) %}
-        {% set allTags = allTags | push(tag) %}
-      {% endif %}
-    {% endfor %}
-  {% endfor %}
+<pre>
+Explorations in collection with slugs:
+{% for e in collections.explorationsWithLogs %}
+- {{ e.data.title }} => {{ e.data.slug }}
+{% endfor %}
+</pre>
 
-<article class="exploration">
-  <h1>{{ title }}</h1>
-  <p>Status: {{ latestStatus }}</p>
-  <p>Tags: {{ allTags | join(", ") }}</p>
-  <p>Started: {{ startDate | toStringDate }}</p>
-  <p>Last update: {{ latestUpdate | toStringDate }}</p>
+<div class="exploration-page">
+  {% if current %}
+    <h1>{{ current.data.title or "Untitled Exploration" }}</h1>
 
-  <section>
+    <p><strong>Status:</strong> {{ current.data.status or "unknown" }}</p>
+    <p><strong>Tags:</strong> {{ current.data.tags | default([]) | join(", ") }}</p>
+    <p><strong>Started:</strong> {{ current.data.startDate | toStringDate }}</p>
+    <p><strong>Last update:</strong> {{ current.data.latestUpdate | toStringDate }}</p>
+
     <h2>Overview</h2>
-    {{ content | safe }}
-  </section>
+    <div class="overview">
+      {{ current.data.description or "" | safe }}
+    </div>
 
-  <section>
-  <h2>Logs</h2>
-  <pre>Current page slug: {{currentSlug}}</pre>
-
-  {% for log in relatedLogs %}
-    <pre>{{log.data.title}}</pre>
-    <pre>{{log.data.date | toStringDate}}</pre>
-    <pre>{{log.data.underTitle}}</pre>
-    <pre>tags: {{log.data.tags | join(", ")}}</pre>
-    <pre>status: {{log.data.status}}</pre>
-    <div>{{log.templateContent | safe}}</div>
-    <hr />
-  {% endfor %}
-  </section>
-
-
-  {# Lingering questions #}
-  {% if unansweredQuestions %}
-  <section>
-    <h3>Lingering questions</h3>
-    <ul>
-      {% if unansweredQuestions is string %}
-        <li>{{ unansweredQuestions }}</li>
-      {% else %}
-        {% for question in unansweredQuestions %}
-          <li>{{ question }}</li>
-        {% endfor %}
-      {% endif %}
-    </ul>
-  </section>
-  {% endif %}
-
-  {# References #}
-  {% if references %}
-  <section>
-    <h3>References</h3>
-    <ul>
-      {% for reference in references %}
-        <li>{{ reference }}</li>
+    <h2>Logs</h2>
+    {% if current.data.relatedLogs and current.data.relatedLogs | length %}
+      {% for log in current.data.relatedLogs %}
+        <div class="log-entry {% if log.data.tags and "what-i-broke" in log.data.tags %}log-broke{% endif %}">
+          <h3>{{ log.data.title }}</h3>
+          <p><strong>Date:</strong> {{ log.data.date | toStringDate }}</p>
+          <p><strong>Tags:</strong> {{ log.data.tags | default([]) | join(", ") }}</p>
+          <p><strong>Status:</strong> {{ log.data.status }}</p>
+          <div class="log-content">
+            {{ log.templateContent | safe }}
+          </div>
+        </div>
       {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
+    {% else %}
+      <p>No logs available yet.</p>
+    {% endif %}
 
-  {# Reflections #}
-  {% if reflections %}
-  <section>
-    <h3>Reflections</h3>
-    <ul>
-      {% for reflection in reflections %}
-        <li>{{ reflection }}</li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
+    {# Lingering questions #}
+    {% if current.data.unansweredQuestions %}
+      <section>
+        <h3>Lingering questions</h3>
+        <ul>
+          {% if current.data.unansweredQuestions is string %}
+            <li>{{ current.data.unansweredQuestions }}</li>
+          {% else %}
+            {% for question in current.data.unansweredQuestions %}
+              <li>{{ question }}</li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+      </section>
+    {% endif %}
 
-  {# Tools #}
-  {% if tools %}
-  <section>
-    <h3>Tools</h3>
-    <ul>
-      {% for tool in tools %}
-        <li>{{ tool }}</li>
-        {% endfor %}
-      </ul>
-    </section>
-  {% endif %}
+    {# References #}
+    {% if current.data.references %}
+      <section>
+        <h3>References</h3>
+        <ul>
+          {% for reference in current.data.references %}
+            <li>{{ reference }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
 
+    {# Reflections #}
+    {% if current.data.reflections %}
+      <section>
+        <h3>Reflections</h3>
+        <ul>
+          {% for reflection in current.data.reflections %}
+            <li>{{ reflection }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+
+    {# Tools #}
+    {% if current.data.tools %}
+      <section>
+        <h3>Tools</h3>
+        <ul>
+          {% for tool in current.data.tools %}
+            <li>{{ tool }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+
+  {% else %}
+    Exploration not found for slug: {{page.fileSlug}}
+  {% endif %}
+</div>
 
 {% endblock %}

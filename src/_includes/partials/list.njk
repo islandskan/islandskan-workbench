@@ -10,7 +10,7 @@
     {% set cardType = 'bookshelf-item' %}
     {% set listClass = 'bookshelf' %}
 {% elseif listType == 'explorations' %}
-    {% set items = collections.explorations %}
+    {% set items = collections.explorationsWithLogs %}
     {% set cardType = 'exploration' %}
     {% set listClass = 'posts' %}
 {% elseif listType == 'thoughts' %}
@@ -21,13 +21,11 @@
     {% set items = [] %}
 {% endif %}
 
-<div class="list {{listClass}}">
-{% for item in items %}
-    {% set _item = item %}
-    {% set _cardType = cardType %}
-    {% include "partials/card.njk" %}
-    {% else %}
-    <p>No items found</p>
-{% endfor %}
 
-</div>
+{% for item in items %}
+  {% set _item = item %}
+  {% set _cardType = cardType %}
+  {% include "partials/card.njk" %}
+{% else %}
+  <p>No items found</p>
+{% endfor %}
