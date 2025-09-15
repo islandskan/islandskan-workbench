@@ -5,6 +5,7 @@
     "main": ".eleventy.js",
     "scripts": {
         "dev": "cross-env ELEVENTY_ENV=development npx @11ty/eleventy --serve",
+        "lint": "eslint",
         "stage": "cross-env ELEVENTY_ENV=staging npx @11ty/eleventy --serve",
         "posts": "node scripts/watch-exploration-posts.js",
         "build": "cross-env ELEVENTY_ENV=production npx @11ty/eleventy"
@@ -14,7 +15,10 @@
     "license": "ISC",
     "devDependencies": {
         "@11ty/eleventy": "^3.1.2",
-        "cross-env": "^10.0.0"
+        "@eslint/js": "^9.35.0",
+        "cross-env": "^10.0.0",
+        "eslint": "^9.35.0",
+        "globals": "^16.4.0"
     },
     "dependencies": {
         "chokidar": "^3.6.0",
