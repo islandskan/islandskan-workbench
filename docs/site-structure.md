@@ -47,55 +47,143 @@
 
 ## Folder structure
 
-```
+````
 src/
 |-- _data/
 |-- |-- bookshelf.json      <-- data collection of bookshelf items
+|-- |-- bookshelf.schema.json		<-- json schema
 |--  _includes/
-|-- |-- layouts/
-|-- |-- |-- base.njk
+|-- |-- layouts/		<-- layout templates for pages
+|-- |-- |-- base.njk		<-- base layout template
 |-- |-- |-- bookshelf.njk
-|-- |-- |-- post.njk        <-- single layout for all individual post pages
+|-- |-- |-- exploration.njk        <-- single exploration post
 |-- |-- |-- exploration-index.njk
-|-- |-- |-- interrupts.njk      <-- contact page
+|-- |-- |-- interrupts.njk
+|-- |-- |-- thoughts.njk		<-- single thought post
 |-- |-- |-- thoughts-index.njk
-|-- |-- |-- workbench.njk       <-- template layout for the src/index.md (the home page)
-|-- |-- partials/
+|-- |-- |-- workbench.njk
+|-- |-- partials/		<-- elements and components
 |-- |-- |-- workbench-modals/       <-- separate folder for home page content
 |-- |-- |-- |-- latest-bookshelf-item.njk
 |-- |-- |-- |-- latest-exploration.njk
 |-- |-- |-- |-- latest-thought.njk
-|-- |-- |-- |-- standalone.njk      <-- a standalone modal that doesn't link to any page (for example just a modal with a "cool electronics tool")
-|-- |-- |-- |-- what-i-broke.njk        <-- if an "Exploration" post contains entry with the tag "what-i-broke",
+|-- |-- |-- |-- standalone.njk
+|-- |-- |-- |-- what-i-broke.njk
 |-- |-- |-- about.njk
-|-- |-- |-- card.njk        <-- base card based on cardType("exploration", "thought", "bookshelf-item")
+|-- |-- |-- card.njk        <-- card component (cardType: "exploration", "thought", "bookshelf-item") used with list.njk
 |-- |-- |-- footer.njk
 |-- |-- |-- header.njk
-|-- |-- |-- interrupt-form.njk      <-- contact form
-|-- |-- |-- list.njk        <-- reusable list for "Bookshelf", "Explorations", and "Thoughts"
+|-- |-- |-- interrupt-form.njk
+|-- |-- |-- list.njk        <-- reused in "Bookshelf", "Explorations", and "Thoughts"
 |-- bookshelf/
 |-- |--index.md
 |-- css/
 |-- |-- styles.css
 |-- explorations/
 |-- |-- index.md
-|-- interrupts/         <-- page for contact form
+|-- interrupts/
 |-- |-- index.md
-|-- posts/      <-- all posts are created and stored here
-|-- |-- templates/      <-- Obsidian templates
+|-- posts/      <-- all posts (exploration and thought) are created and stored here
+|-- |-- .obsidian		<-- ignored, but placed here since "src/posts" is an Obsidian vault
+|-- |-- templates/		<-- Obsidian templates, generated frontmatter for each post
 |-- |-- |-- exploration-metadata.md
 |-- |-- |-- thought-metadata.md
-|-- |-- |-- exploration-log.md
-|-- |-- example-thought-post.md
-|-- |-- example-exploration-post.md
-|-- |-- example-exploration-post-logs/      <-- automatically creates log folder for corresponding exploration file
+|-- |-- |-- log-metadata.md		<-- log entry template, used to make log entried for a "parent" Exploratin page
+|-- |-- example-thought-post.md		<-- created thought post = single page
+|-- |-- example-exploration-post.md		<-- created exploration post = single "parent" page
+|-- |-- example-exploration-post-logs/      <-- generated subfolder for "parent" Exploration page and its log entries
 |-- |-- |-- 2025-08-09.md
-|-- |-- |-- 2025-08-13.md       <-- examples of what the exploration logs would look like
+|-- |-- |-- 2025-08-13.md
 |-- thoughts/
 |-- |-- index.md
 |-- index.md        <-- the home page, using the workbench.njk as layout
 scripts/        <-- utility scripts
-|-- create-logs-folder.js
+|-- watch-exploration-posts.js		<-- if there's a new file in "src/posts" with the tag "exploration", call ```create-logs-folder.js```
+|-- create-logs-folder.js		<-- takes the new file as argument and generates subfolder
 .eleventy.js        <-- config for 11ty
 output/     <-- generated static HTML
+````
+
+## Posts
+
+### Exploration post
+
+```
+<start of Exploration page>
+------------
+<main page content>
+meta data:
+	startDate(the date the main Exploration post was created)
+	latestUpdate:either the startDate or the date of the latest log entry
+	tags
+	status: either the first default(when the Exploration post is first created or the status of the latest log entry)
+------------
+<main page content>
+Intro content
+	title
+	overview: brief description of the Exploration project
+------------
+<log entries start>
+1#(latest) log entry
+	date: date the log entry was created(example 2025-08-21)
+	status
+	text: all of the content(text, images, etc) for the entry
+------------
+2#log entry
+	date: date the log entry was created(example 2025-08-18)
+	status
+	text: all of the content(text, images, etc) for the entry
+------------
+3#latest log entry
+	date: date the log entry was created(example 2025-08-14)
+	status
+	text: all of the content(text, images, etc) for the entry
+------------
+4#latest log entry
+	date: date the log entry was created(example 2025-08-07)
+	status
+	text: all of the content(text, images, etc) for the entry
+------------
+5#latest log entry
+	date: date the log entry was created(example 2025-08-01)
+	status
+	text: all of the content(text, images, etc) for the entry
+<log entries end>
+------------
+<main page content>
+Conclusions
+	unansweredQuestions
+	reflections
+	references
+	tools: developent tools used in the project
+	components: components used in the project
+<end of Exploration page>
+```
+
+### Thought post
+
+```
+<start of Thought page>
+------------
+<main page content>
+meta data:
+	date(the post date)
+	tags: ["thought", <additional tags>]
+	tone
+------------
+<main page content>
+Intro content
+	title
+	underTitle
+------------
+<Thought content>
+	text: all of the content(text, images, links, embedded elements etc)
+------------
+<main page content>
+Conclusions
+	unansweredQuestions
+	reflections
+	references
+------------
+<end of Thought page>
 ```
