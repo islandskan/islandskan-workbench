@@ -9,11 +9,11 @@ export default defineConfig([
         extends: ['js/recommended'],
         languageOptions: { globals: { ...globals.browser, ...globals.node } },
         rules: {
-          semi: ['error', 'always'],
-          quotes: ['error', 'double'],
-          'no-unused-vars': ['warn'],
-          'no-console': 'off'
-        }
+            semi: ['error', 'always'],
+            quotes: ['error', 'single'],
+            'no-unused-vars': ['warn'],
+            'no-console': 'off',
+        },
     },
     { files: ['**/*.js'], languageOptions: { sourceType: 'commonjs' } },
 ]);
