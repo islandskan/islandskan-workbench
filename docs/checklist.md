@@ -7,24 +7,28 @@
 ### tags and statuses
 
 -   [x] **Todo:** Create a `tags.json` file inside `_data` to store tags and statuses.
--   [ ] **Todo:** Set up Obsidian templates to read from `tags.json`.
--   [ ] **Test:** When adding a tag or status in Obsidian, dropdown suggestions show existing options.
+~~-   [ ] **Todo:** Set up Obsidian templates to read from `tags.json`.~~
+~~-   [ ] **Test:** When adding a tag or status in Obsidian, dropdown suggestions show existing options.~~
 
 ### Thought posts
 
--   [ ] **Test:** All posts tagged `thought` are listed as cards on the Thoughts index.
--   [ ] **Test:** Each post card displays metadata and links to its post page.
--   [ ] **Test:** A new `.md` post created in Obsidian automatically appears as a card + page.
--   [ ] **Test:** Thought posts can be edited in Obsidian.
+-   [X] **Test:** All posts tagged `thought` are listed as cards on the Thoughts index.
+-   [X] **Test:** Each post card displays metadata to its post page.
+-   [X] **Test:** Each post card links to its post page.
+-   [X] **Test:** A new `.md` post created in Obsidian automatically appears as a card + page.
+-   [X] **Test:** Thought posts can be edited in Obsidian.
 
 ### Explorations (core)
 
--   [ ] **Todo:** Create `create-logs-folder.js` script to generate `exploration-logs` folders.
--   [ ] **Test:** Creating an Exploration post in Obsidian creates the correct subfolder in `posts/`.
+-   [X] **Todo:** Create `create-logs-folder.js` script to generate `exploration-logs` folders.
+-   [X] **Test:** Creating an Exploration post in Obsidian creates the correct subfolder in `posts/`.
 -   [ ] **Test:** Logs can be added inside the `-logs` folder and appear on the Exploration page.
+-   [ ] **Test:** Logs entries are treated as just content to the parent page (meaning: 11ty doesn't render separate pages for each log entry).
 -   [ ] **Test:** Log entries display newest → oldest.
 -   [ ] **Test:** The Exploration page stores and displays `latestUpdate` (newest log’s date).
 -   [ ] **Test:** The Exploration page stores and displays `status` (newest log’s status).
+-   [ ] **Test:** Log entries are displayed on the right parent Exploration page
+-   [ ] **Test:** Log entries don't overwrite each other (meaning: the same log entries don't aren't rendered on the wrong page)
 
 ---
 
@@ -34,14 +38,14 @@
 
 -   [ ] **Test:** Add a new book entry to `bookshelf.json` from Obsidian.
 -   [ ] **Test:** Schema validates each new entry.
--   [ ] **Test:** Entries display on the Bookshelf index page.
+-   [X] **Test:** Entries display on the Bookshelf index page.
 -   [ ] **Test:** Entries are categorized by type.
 -   [ ] **Test:** Entries sort newest → oldest by `dateAdded`.
 -   [ ] **Test:** Entries with `relatedThought` link correctly to Thought posts.
 
 ### Exploration logs as collections
 
--   [ ] **Todo:** Create collection for `exploration-logs`.
+-   [X] **Todo:** Create collection for `exploration-logs`.
 -   [ ] **Test:** Each Exploration page lists its logs.
 -   [ ] **Test:** Logs ordered newest → oldest.
 
@@ -52,11 +56,11 @@
 ### Special exploration: “What I Broke”
 
 -   [ ] **Test:** Log entries tagged `what-i-broke` are added to the `what-i-broke` collection.
--   [ ] **Test:** These log entries display with special CSS styling.
--   [ ] **Test:** The Exploration page inherits the `what-i-broke` tag when a log entry uses it.
--   [ ] **Test:** Exploration index cards with `what-i-broke` are styled differently.
+-   [X] **Test:** These log entries display with special CSS styling.
+-   [X] **Test:** The Exploration page inherits the `what-i-broke` tag when a log entry uses it.
+-   [X] **Test:** Exploration index cards with `what-i-broke` are styled differently.
 -   [ ] **Test:** If the next log entry is tagged `solved`, the Exploration page removes the `what-i-broke` tag.
--   [ ] **Test:** Older log entries tagged `what-i-broke` keep their tag + styling, even after being solved.
+-   [X] **Test:** Older log entries tagged `what-i-broke` keep their tag + styling, even after being solved.
 -   [ ] **Test:** Exploration page styling for `what-i-broke` is removed after solved.
 
 ---
