@@ -2,41 +2,25 @@
 
 {% block content %}
 
-{# Find the current exploration from the collection based on page.fileSlug #}
-{% set current = collections.explorationsWithLogs
-    | selectattr("data.slug", "equalto", page.fileSlug)
-    | first %}
-
-    <pre>
-page.slug: {{ page.slug }}
-page.fileSlug: {{ page.fileSlug }}
-page.url: {{ page.url }}
-</pre>
-
-<pre>
-Explorations in collection with slugs:
-{% for e in collections.explorationsWithLogs %}
-- {{ e.data.title }} => {{ e.data.slug }}
-{% endfor %}
-</pre>
-
 <div class="exploration-page">
-  {% if current %}
-    <h1>{{ current.data.title or "Untitled Exploration" }}</h1>
 
-    <p><strong>Status:</strong> {{ current.data.status or "unknown" }}</p>
-    <p><strong>Tags:</strong> {{ current.data.tags | default([]) | join(", ") }}</p>
-    <p><strong>Started:</strong> {{ current.data.startDate | toStringDate }}</p>
-    <p><strong>Last update:</strong> {{ current.data.latestUpdate | toStringDate }}</p>
+    <h1>{{ title or "Untitled Exploration" }}</h1>
 
+    <p><strong>Status:</strong> {{ status or "unknown" }}</p>
+    <p><strong>Tags:</strong> {{ tags | default([]) | join(", ") }}</p>
+    <p><strong>Started:</strong> {{ startDate | toStringDate }}</p>
+    <p><strong>Last update:</strong> {{ latestUpdate | toStringDate }}</p>
+
+  {% if overview %}
     <h2>Overview</h2>
     <div class="overview">
-      {{ current.data.description or "" | safe }}
+      {{ overview or "" | safe }}
     </div>
+    {% endif %}
 
     <h2>Logs</h2>
-    {% if current.data.relatedLogs and current.data.relatedLogs | length %}
-      {% for log in current.data.relatedLogs %}
+    {% if logEntries | length %}
+      {% for log in logEntries %}
         <div class="log-entry {% if log.data.tags and "what-i-broke" in log.data.tags %}log-broke{% endif %}">
           <h3>{{ log.data.title }}</h3>
           <p><strong>Date:</strong> {{ log.data.date | toStringDate }}</p>
@@ -52,60 +36,59 @@ Explorations in collection with slugs:
     {% endif %}
 
     {# Lingering questions #}
-    {% if current.data.unansweredQuestions %}
+    {% if unansweredQuestions %}
       <section>
         <h3>Lingering questions</h3>
         <ul>
-          {% if current.data.unansweredQuestions is string %}
-            <li>{{ current.data.unansweredQuestions }}</li>
+          {% if unansweredQuestions is string %}
+            <li>{{ unansweredQuestions }}</li>
           {% else %}
-            {% for question in current.data.unansweredQuestions %}
+            {% for question in unansweredQuestions %}
               <li>{{ question }}</li>
             {% endfor %}
           {% endif %}
         </ul>
       </section>
-    {% endif %}
+      {% endif %}
 
-    {# References #}
-    {% if current.data.references %}
-      <section>
-        <h3>References</h3>
-        <ul>
-          {% for reference in current.data.references %}
-            <li>{{ reference }}</li>
-          {% endfor %}
-        </ul>
-      </section>
-    {% endif %}
 
     {# Reflections #}
-    {% if current.data.reflections %}
+    {% if reflections %}
       <section>
         <h3>Reflections</h3>
         <ul>
-          {% for reflection in current.data.reflections %}
+          {% for reflection in reflections %}
             <li>{{ reflection }}</li>
           {% endfor %}
         </ul>
       </section>
-    {% endif %}
+      {% endif %}
 
     {# Tools #}
-    {% if current.data.tools %}
+    {% if tools %}
       <section>
         <h3>Tools</h3>
         <ul>
-          {% for tool in current.data.tools %}
+          {% for tool in tools %}
             <li>{{ tool }}</li>
           {% endfor %}
         </ul>
       </section>
-    {% endif %}
+      {% endif %}
 
-  {% else %}
-    Exploration not found for slug: {{page.fileSlug}}
-  {% endif %}
+    {# References #}
+    {% if references %}
+      <section>
+        <h3>References</h3>
+        <ul>
+          {% for reference in references %}
+            <li>{{ reference }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+    {# Exploration not found for slug: {{page.fileSlug}} #}
 </div>
 
 {% endblock %}

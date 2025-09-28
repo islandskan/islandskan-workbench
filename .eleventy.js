@@ -21,13 +21,54 @@ module.exports = function (eleventyConfig) {
     });
 
     eleventyConfig.addCollection('explorations', function (collectionsApi) {
-        const items = collectionsApi.getFilteredByTag('exploration');
-        return items;
-    });
+        const rawFiles = collectionsApi.getAll();
+        const parents = collectionsApi.getFilteredByTag('exploration');
+        return parents.map((parent) => {
+            const parentId = parent.page.fileSlug;
+            const children = rawFiles.filter(
+                (child) =>
+                    child.inputPath.startsWith(`./src/posts/${parentId}`) &&
+                    child.data.parent === parentId &&
+                    child.data.permalink === false
+            );
+            const childTags = children.flatMap(
+                (child) => child.data.tags || []
+            );
+            const uniqueChildTags = [
+                ...new Set(
+                    childTags.filter(
+                        (tag) =>
+                            tag !== 'logs' &&
+                            tag !== 'what-i-broke' &&
+                            tag !== 'resolved' &&
+                            tag !== 'solved'
+                    )
+                ),
+            ];
+            parent.data.tags = [
+                ...new Set([...(parent.data.tags || []), ...uniqueChildTags]),
+            ];
+            children.sort((a, b) => {
+                const diff = b.data.date - a.data.date;
+                if (diff !== 0) {
+                    return diff;
+                }
+                return b.inputPath.localeCompare(a.inputPath);
+            });
+            if (children.length > 0) {
+                const newestChild = children[0];
+                parent.data.status =
+                    newestChild.data.status || parent.data.status;
+                parent.data.latestUpdate =
+                    newestChild.data.date || parent.data.latestUpdate;
+                parent.data.hasWhatIBroke =
+                    newestChild.data.tags &&
+                    newestChild.data.tags.includes('what-i-broke');
+            }
+            parent.data.logEntries = children;
 
-    eleventyConfig.addCollection('explorationLogs', function (collectionsApi) {
-        const logs = collectionsApi.getFilteredByTag('logs');
-        return logs;
+            return parent;
+        });
     });
 
     eleventyConfig.addFilter('push', function (array, item) {
@@ -37,70 +78,6 @@ module.exports = function (eleventyConfig) {
 
         return array.concat([item]);
     });
-
-    eleventyConfig.addCollection(
-        'explorationsWithLogs',
-        function (collectionsApi) {
-            const explorations = collectionsApi.getFilteredByTag('exploration');
-            const logs = collectionsApi.getFilteredByTag('logs');
-
-            const getTags = (tag) =>
-                Array.isArray(tag) ? tag : tag ? [tag] : [];
-
-            const validateTime = (date) => {
-                const time = new Date(date).getTime();
-                return Number.isNaN(time) ? 0 : time;
-            };
-
-            explorations.forEach((exploration) => {
-                const slug = exploration.data.slug;
-
-                if (!slug) {
-                    console.warn(
-                        `Exploration "${exploration.inputPath} is missing a slug in frontmatter! Logs may not link correctly D:`
-                    );
-                }
-
-                const relatedLogs = logs.filter(
-                    (log) => log.data.parent === slug
-                );
-
-                console.log(
-                    `🔍 Exploration: ${slug} has ${relatedLogs.length} logs ->`,
-                    relatedLogs.map((l) => l.data.title)
-                );
-
-                relatedLogs.sort(
-                    (a, b) =>
-                        validateTime(b.data.date) - validateTime(a.data.date)
-                );
-
-                exploration.data.relatedLogs = relatedLogs;
-
-                exploration.data.latestUpdate =
-                    relatedLogs[0]?.data.date || exploration.data.startDate;
-
-                exploration.data.status =
-                    relatedLogs[0]?.data.status || exploration.data.status;
-
-                const allTags = new Set([
-                    ...getTags(exploration.data.tags),
-                    ...relatedLogs.flatMap((log) => getTags(log.data.tags)),
-                ]);
-                exploration.data.tags = Array.from(allTags);
-
-                exploration.data.hasWhatIBroke = relatedLogs.some((log) =>
-                    getTags(log.data.tags).includes('what-i-broke')
-                );
-            });
-
-            return explorations.sort(
-                (a, b) =>
-                    validateTime(b.data.latestUpdate) -
-                    validateTime(a.data.latestUpdate)
-            );
-        }
-    );
 
     return {
         dir: {
