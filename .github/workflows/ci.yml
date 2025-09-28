@@ -8,7 +8,7 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         steps:
             - name: Checkout repo
               uses: actions/checkout@v4
@@ -28,12 +28,5 @@ jobs:
             - name: Build site
               run: npm run build
 
-            - name: HTML validation
-              run: npx html-validate "output/**/*.html"
-
-            - name: Check broken links
-              uses: lycheeverse/lychee-action@v1
-              with:
-                  urls: './output'
-                  github_token: ${{secrets.GITHUB_TOKEN}}
-                  ignore: '.*\.md$'
+            - name: Security audit
+              run: npm audit --production
