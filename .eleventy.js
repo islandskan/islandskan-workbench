@@ -1,9 +1,18 @@
 // const util = require('util');
-module.exports = function (eleventyConfig) {
+module.exports = async function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy('./src/css');
     eleventyConfig.addWatchTarget('./src/css/');
     eleventyConfig.addPassthroughCopy('./src/scripts');
     eleventyConfig.addWatchTarget('./src/scripts');
+
+    const { default: interlinker } = await import(
+        '@photogabble/eleventy-plugin-interlinker'
+    );
+
+    eleventyConfig.addPlugin(interlinker, {
+        defaultLayout: 'layouts/embed.liquid',
+        deadLinkReport: 'console',
+    });
 
     const env = process.env.ELEVENTY_ENV || 'development';
     eleventyConfig.addGlobalData('env', env);

@@ -1,13 +1,59 @@
 {% extends "layouts/base.njk" %}
-
 {% block content %}
+<div class="thought-page">
+<section class="meta">
+    <h1>{{ title or "Untitled Exploration" }}</h1>
+    <h2>{{underTitle or "No undertitle"}}</h2>
+    <p><strong>Tags:</strong> {{ tags | default([]) | join(", ") }}</p>
+    <p><strong>Tone:</strong> {{ tone or "" }}</p>
+    <p><strong>Date:</strong> {{ date | toStringDate }}</p>
+</section>
 
-<section class="thought">
-    <h2>{{title}}</h2>
-    <p>{{date | toStringDate}}</p>
+<section class="thought-body">
     <article>
         {{content | safe}}
     </article>
 </section>
 
+   {% if unansweredQuestions %}
+      <section>
+        <h3>Lingering questions</h3>
+        <ul>
+          {% if unansweredQuestions is string %}
+            <li>{{ unansweredQuestions }}</li>
+          {% else %}
+            {% for question in unansweredQuestions %}
+              <li>{{ question }}</li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+      </section>
+      {% endif %}
+
+    {# Reflections #}
+    {% if reflections %}
+      <section>
+        <h3>Reflections</h3>
+        <ul>
+          {% for reflection in reflections %}
+            <li>{{ reflection }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+        {# References #}
+    {% if references %}
+      <section>
+        <h3>References</h3>
+        <ul>
+          {% for reference in references %}
+            <li>{{ reference }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+
+</div>
 {% endblock %}

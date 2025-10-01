@@ -1,7 +1,12 @@
 <div class="card {{_cardType}} {% if _item.data.hasWhatIBroke %}exploration-broke{% endif %}">
     {% if _item.data %}
     <h5><a href="{{_item.url}}">{{_item.data.title}}</a></h5>
+    {% if _item.data.status %}
     <p>Status: {{_item.data.status}}</p>
+    {% endif %}
+    {% if _item.data.tone %}
+    <p>Tone: {{_item.data.tone}}</p>
+    {% endif %}
     <p>Latest update: {{_item.data.latestUpdate | toStringDate}}</p>
     <p>Tags: {{_item.data.tags | join(", ")}}</p>
     {% else %}
