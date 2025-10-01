@@ -4,13 +4,17 @@ module.exports = async function (eleventyConfig) {
     eleventyConfig.addWatchTarget('./src/css/');
     eleventyConfig.addPassthroughCopy('./src/scripts');
     eleventyConfig.addWatchTarget('./src/scripts');
+    eleventyConfig.addPassthroughCopy({ './src/assets': 'assets' });
+    eleventyConfig.addWatchTarget('./src/assets');
 
     const { default: interlinker } = await import(
         '@photogabble/eleventy-plugin-interlinker'
     );
 
     eleventyConfig.addPlugin(interlinker, {
+        embedLayoutLanguage: 'liquid',
         defaultLayout: 'layouts/embed.liquid',
+        embedLayout: 'layouts/bookmark-embed.liquid',
         deadLinkReport: 'console',
     });
 

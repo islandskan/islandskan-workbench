@@ -43,12 +43,14 @@
 
 ## Thought posts
 
-- [X] When I have created a "Thought" post, it uses the correct data for each Thought page
+- [x] When I have created a "Thought" post, it uses the correct data for each Thought page
 
 ## Posts (general)
 
-- [ ] When I cross-reference another post in frontmatter, the link works
-- [X] When I link to an external web page, the link works!
+- [x] When I cross-reference another post in frontmatter, the link works
+- [x] When I link to an external web page, the link works!
+- [x] Posts render images
+- [x] Posts render embedded videos
 
 ## Bookshelf
 
