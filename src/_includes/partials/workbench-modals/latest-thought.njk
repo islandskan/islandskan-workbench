@@ -1,5 +1,11 @@
-<div>
-<h6>
-Latest Thought
-</h6>
+{% set latestThought = collections.thoughts[0] %}
+{% if latestThought %}
+
+<div class="modal">
+    <h6>
+        Latest Thought
+    </h6>
+    <a href="{{latestThought.url}}">{{latestThought.data.title}}</a>
+    <span>See more <a href="/thoughts/">Thoughts posts</a></span>
 </div>
+{% endif %}

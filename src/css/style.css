@@ -69,6 +69,10 @@ a {
     color: var(--black);
 }
 
+img {
+    max-width: 400px;
+}
+
 /* End of General styles */
 
 /* Layout styles */
@@ -119,6 +123,10 @@ footer {
 /* End of Reusable component styles */
 
 /* Page specific styles */
+
+.modal {
+    border: 1px solid white;
+}
 
 .bookshelf-item {
 }

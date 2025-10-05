@@ -29,7 +29,9 @@ module.exports = async function (eleventyConfig) {
     });
 
     eleventyConfig.addCollection('thoughts', function (collectionsApi) {
-        const items = collectionsApi.getFilteredByTag('thought');
+        const items = collectionsApi
+            .getFilteredByTag('thought')
+            .sort((a, b) => b.data.date - a.data.date);
         return items;
     });
 

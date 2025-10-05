@@ -1,5 +1,11 @@
-<div>
-<h6>
-Latest Exploration
-</h6>
+{% set latestExploration = collections.explorations[0] %}
+{% if latestExploration %}
+
+<div class="modal">
+    <h6>
+        Latest Exploration
+    </h6>
+    <a href="{{latestExploration.url}}">{{latestExploration.data.title}}</a>
+    <span>See more <a href="/explorations/">Exploration posts</a></span>
 </div>
+{% endif %}

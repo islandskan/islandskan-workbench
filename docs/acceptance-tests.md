@@ -13,8 +13,8 @@
 ## Layouts & navigation
 
 - [x] When I open the site, I can navigate between home, thoughts, explorations, bookshelf, and interrupts
-- [ ] When I open the home page, I see modals for latest Thought, latest Exploration, latest Bookshelf item, and About
-- [ ] When I click a modal, I am taken to the correct page
+- [X] When I open the home page, I see modals for latest Thought, latest Exploration, latest Bookshelf item
+- [X] When I click a modal, I am taken to the correct page
 - [ ] When I click the About modal, the info appears inline (no page change)
 - [] Whe a Exploration page has a current log entry tagged as "what-i-broke", it is displayed as a dedicated modal
 - [] The "What I broke" modal links to the Exploration page
@@ -57,7 +57,7 @@
 - [ ] When I add a new item to `bookshelf.json`, schema validation passes
 - [ ] When I add a new item, it appears on the Bookshelf page
 - [ ] When I add a `relatedThoughtURI`, the link works and points to the correct Thought
-- [ ] When I check the home page, the latest added item appears in the “Currently reading/watching/listening to” modal
+- [X] When I check the home page, the latest added item appears in the “Currently reading/watching/listening to” modal
 
 ## Styles
 

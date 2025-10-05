@@ -1,5 +1,12 @@
-<div>
-<h6>
-Currently reading:
-</h6>
-</div>
+{% if latestBookshelfItem %}
+
+    {% set type = latestBookshelfItem.type %}
+    {% set verb = verbMap[type] or "exploring" %}
+
+    <div class="modal">
+        <p>Currently {{verb}}: {{latestBookshelfItem.title}}</p>
+        <p>See rest of <a href="/bookshelf/">Bookshelf</a></p>
+    </div>
+    {% else %}
+        <pre>No Bookshelf item</pre>
+{% endif %}

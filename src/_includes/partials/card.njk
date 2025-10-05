@@ -1,24 +1,38 @@
 <div class="card {{_cardType}} {% if _item.data.hasWhatIBroke %}exploration-broke{% endif %}">
     {% if _item.data %}
-    <h5><a href="{{_item.url}}">{{_item.data.title}}</a></h5>
-    {% if _item.data.status %}
-    <p>Status: {{_item.data.status}}</p>
-    {% endif %}
-    {% if _item.data.tone %}
-    <p>Tone: {{_item.data.tone}}</p>
-    {% endif %}
-    <p>Latest update: {{_item.data.latestUpdate | toStringDate}}</p>
-    <p>Tags: {{_item.data.tags | join(", ")}}</p>
-    {% else %}
-    {# item is from bookshelf.json #}
-        <h6>{{_item.title}}</h6>
-        <p>{{_item.dateAdded}}</p>
-        <p>{{_item.creator}}</p>
-        <p>{{_item.year}}</p>
-        <p>{{_item.description}}</p>
-        <p>{{_item.externalURI}}</p>
+        <h5><a href="{{_item.url}}">{{_item.data.title}}</a></h5>
+        {% if _item.data.status %}
+            <p>Status: {{_item.data.status}}</p>
+        {% endif %}
+        {% if _item.data.tone %}
+            <p>Tone: {{_item.data.tone}}</p>
+        {% endif %}
+        {% if _item.data.latestUpdate %}
+            <p>Latest update: {{_item.data.latestUpdate | toStringDate}}</p>
+        {% else %}
+            <p>Date: {{_item.data.date | toStringDate}}</p>
+        {% endif %}
+            <p>Tags: {{_item.data.tags | join(", ")}}</p>
+        {% else %}
+        {# item is from bookshelf.json #}
+        <h6>
+            {% if _item.externalURI %}
+                <a href="{{_item.externalURI}}">{{_item.title}}</a>
+            {% else %}
+                {{_item.title}}
+            {% endif %}
+        </h6>
+        {% if _item.creator %}
+            <p>{{_item.creator}}</p>
+        {% endif%}
+        {% if _item.year %}
+            <p>{{_item.dateAdded}}</p>
+        {% endif %}
+        {% if _item.description %}
+            <p>{{_item.creator}}</p>
+        {% endif %}
         {% if _item.relatedThought %}
             <a href="{{_item.relatedThought}}">Read my thoughts on this</a>
         {% endif %}
-{% endif %}
+    {% endif %}
 </div>
