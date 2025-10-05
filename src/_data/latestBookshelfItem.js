@@ -5,9 +5,13 @@ module.exports = () => {
         return null;
     }
 
-    const sortedBookshelf = bookshelf.sort(
-        (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)
-    );
+    const sortedBookshelf = bookshelf.sort((a, b) => {
+        const diff = new Date(b.dateAdded) - new Date(a.dateAdded);
+        if (diff !== 0) {
+            return diff;
+        }
+        return b.itemId - a.itemId;
+    });
 
     return sortedBookshelf[0];
 };

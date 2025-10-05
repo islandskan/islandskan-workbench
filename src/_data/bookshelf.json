@@ -20,5 +20,27 @@
         "description": null,
         "externalURI": null,
         "relatedThoughtURI": null
+    },
+    {
+        "itemId": 3,
+        "type": "game",
+        "title": "Clair Obscur Expedition 33",
+        "dateAdded": "2025-10-05",
+        "creator": "Sandfall",
+        "year": 2025,
+        "description": null,
+        "externalURI": "https://www.expedition33.com/",
+        "relatedThoughtURI": null
+    },
+    {
+        "itemId": 4,
+        "type": "video",
+        "title": "Nintendo 64 Jungle mix",
+        "dateAdded": "2025-10-05",
+        "creator": "",
+        "year": 2021,
+        "description": null,
+        "externalURI": "https://www.youtube.com/watch?v=uLxD4ozDPZA&t=3s",
+        "relatedThoughtURI": null
     }
 ]

@@ -6,6 +6,8 @@ module.exports = async function (eleventyConfig) {
     eleventyConfig.addWatchTarget('./src/scripts');
     eleventyConfig.addPassthroughCopy({ './src/assets': 'assets' });
     eleventyConfig.addWatchTarget('./src/assets');
+    eleventyConfig.addWatchTarget('./src/_data');
+    eleventyConfig.addWatchTarget('./src/posts');
 
     const { default: interlinker } = await import(
         '@photogabble/eleventy-plugin-interlinker'

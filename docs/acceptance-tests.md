@@ -55,7 +55,7 @@
 ## Bookshelf
 
 - [ ] When I add a new item to `bookshelf.json`, schema validation passes
-- [ ] When I add a new item, it appears on the Bookshelf page
+- [X] When I add a new item, it appears on the Bookshelf page
 - [ ] When I add a `relatedThoughtURI`, the link works and points to the correct Thought
 - [X] When I check the home page, the latest added item appears in the “Currently reading/watching/listening to” modal
 
