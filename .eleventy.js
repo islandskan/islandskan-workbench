@@ -1,10 +1,9 @@
-// const util = require('util');
 module.exports = async function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy('./src/css');
     eleventyConfig.addWatchTarget('./src/css/');
     eleventyConfig.addPassthroughCopy('./src/scripts');
     eleventyConfig.addWatchTarget('./src/scripts');
-    eleventyConfig.addPassthroughCopy({ './src/assets': 'assets' });
+    eleventyConfig.addPassthroughCopy({ './src/posts/assets': 'assets' });
     eleventyConfig.addWatchTarget('./src/assets');
     eleventyConfig.addWatchTarget('./src/_data');
     eleventyConfig.addWatchTarget('./src/posts');
@@ -86,6 +85,18 @@ module.exports = async function (eleventyConfig) {
 
             return parent;
         });
+    });
+
+    eleventyConfig.addCollection('whatIBroke', function (collectionsApi) {
+        const brokenExplorations = collectionsApi
+            .getFilteredByTag('exploration')
+            .filter((item) => item.data.hasWhatIBroke);
+        return brokenExplorations;
+    });
+
+    eleventyConfig.addCollection('standalones', function (collectionsApi) {
+        console.log(collectionsApi.getFilteredByTag('standalone'));
+        return collectionsApi.getFilteredByTag('standalone');
     });
 
     eleventyConfig.addFilter('push', function (array, item) {

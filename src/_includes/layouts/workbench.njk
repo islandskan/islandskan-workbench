@@ -5,5 +5,11 @@
     {% include "partials/workbench-modals/latest-exploration.njk" %}
     {% include "partials/workbench-modals/latest-thought.njk" %}
     {% include "partials/workbench-modals/latest-bookshelf-item.njk" %}
+    {% if collections.whatIBroke and collections.whatIBroke.length > 0 %}
+        {% include "partials/workbench-modals/what-i-broke.njk" %}
+    {% endif %}
+    {% if collections.standalones and collections.standalones.length > 0 %}
+        {% include "partials/workbench-modals/standalone.njk" %}
+    {% endif %}
 </div>
 {% endblock %}

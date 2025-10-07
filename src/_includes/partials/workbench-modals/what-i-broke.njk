@@ -1,0 +1,8 @@
+{% set latestWhatIBroke = collections.whatIBroke[0] %}
+
+<div class="modal">
+    <h6>
+        What I recently broke
+    </h6>
+    <a href="{{latestWhatIBroke.url}}">{{latestWhatIBroke.data.title}}</a>
+</div>

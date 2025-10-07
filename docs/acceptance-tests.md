@@ -13,12 +13,13 @@
 ## Layouts & navigation
 
 - [x] When I open the site, I can navigate between home, thoughts, explorations, bookshelf, and interrupts
-- [X] When I open the home page, I see modals for latest Thought, latest Exploration, latest Bookshelf item
-- [X] When I click a modal, I am taken to the correct page
+- [x] When I open the home page, I see modals for latest Thought, latest Exploration, latest Bookshelf item
+- [x] When I click a modal, I am taken to the correct page
 - [ ] When I click the About modal, the info appears inline (no page change)
-- [] Whe a Exploration page has a current log entry tagged as "what-i-broke", it is displayed as a dedicated modal
-- [] The "What I broke" modal links to the Exploration page
-- [] When the Exploration page isn't tagged as "What I broke" anymore, the modal is removed from the Workbench
+- [x] When there's a special type of modal called "standalone", it's rendered on the workbench page
+- [x] Whe a Exploration page has a current log entry tagged as "what-i-broke", it is displayed as a dedicated modal
+- [x] The "What I broke" modal links to the Exploration page
+- [X] When the Exploration page isn't tagged as "What I broke" anymore, the modal is removed from the Workbench
 - [] When a user visits the Workbench for the first time, a modal named "Start here"
 - [x] When I scroll any page, header and footer are displayed consistently
 
@@ -55,9 +56,10 @@
 ## Bookshelf
 
 - [ ] When I add a new item to `bookshelf.json`, schema validation passes
-- [X] When I add a new item, it appears on the Bookshelf page
+- [] The Bookshelf list should organize the items in types/categories
+- [x] When I add a new item, it appears on the Bookshelf page
 - [ ] When I add a `relatedThoughtURI`, the link works and points to the correct Thought
-- [X] When I check the home page, the latest added item appears in the “Currently reading/watching/listening to” modal
+- [x] When I check the home page, the latest added item appears in the “Currently reading/watching/listening to” modal
 
 ## Styles
 
