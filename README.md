@@ -1,7 +1,7 @@
 # Islandskan Workbench - Personal Website
 
-brief description of website
-
+<!-- brief description of website -->
+WORK IN PROGRESS
 ---
 
 ## Goals
